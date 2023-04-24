@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <stddef.h>
+
 /**
  * _printf - function that produces output according to a format
  * @format: strin with format specifier
@@ -10,43 +10,42 @@
  */
 int _printf(const char *format, ...)
 {
-	if (format != NULL)
-	{
-		int count = 0, i;
-		int (*m)(va_list);
-		va_list args;
+	int printed_chars = 0;
+	va_list args;
 
-		va_start(args, format);
-		i = 0;
-		if (format[0] == '%' && format[1] == '\0')
-			return (-1);
-		while (format != NULL && format[i] != '\0')
+	va_start(args, format);
+	while (*format)
+	{
+		if (*format == '%')
 		{
-			if (format[i] == '%')
+			format++;
+			switch (*format)
 			{
-				if (format[i + 1] == '%')
-				{
-					count += _putchar(format[i]);
-					i += 2;
-				}
-				else
-				{
-					m = specify(format[i + 1]);
-					if (m)
-						count += m(args);
-					else
-						count = _putchar(format[i]) + _putchar(format[i + 1]);
-					i += 2;
-				}
-			}
-			else
-			{
-				count += _putchar(format[i]);
-				i++;
+				case 'c':
+					_putchar(va_arg(args, int));
+					printed_chars++;
+					break;
+				case 's':
+					printed_chars += printf("%s", va_arg(args, char *));
+					break;
+				case '%':
+					_putchar('%');
+					printed_chars++;
+					break;
+				default:
+					_putchar('%');
+					_putchar(*format);
+					printed_chars += 2;
+					break;
 			}
 		}
-		va_end(args);
-		return (count);
+		else
+		{
+			_putchar(*format);
+			printed_chars++;
+		}
+		format++;
 	}
-	return (-1);
+	va_end(args);
+	return (printed_chars);
 }

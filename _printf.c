@@ -5,8 +5,8 @@
 #include <stddef.h>
 /**
  * _printf - function that produces output according to a format
- * @format: string with format specifier
- * Return: number of characters printed
+ * @format: strin with format specifier
+ * Return: number of characters
  */
 int _printf(const char *format, ...)
 {

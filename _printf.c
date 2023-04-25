@@ -1,42 +1,51 @@
 #include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
 
 /**
- * _printf - Output a formatted string
- * @format: Character string to print
- * * Return: The number of characters printed
+ * _printf - function that produces output according to a format
+ * @format: strin with format specifier
+ * Return: number of characters
  */
 int _printf(const char *format, ...)
 {
+	int printed_chars = 0;
 	va_list args;
-	unsigned int count = 0;
-	unsigned int tmp = 0;
-	unsigned int n;
 
 	va_start(args, format);
-	for (; format[count] != '\0'; count++)
+	while (*format)
 	{
-		if (format[count] != '%')
+		if (*format == '%')
 		{
-			putchar(format[count]);
+			format++;
+			switch (*format)
+			{
+				case 'c':
+					_putchar(va_arg(args, int));
+					printed_chars++;
+					break;
+				case 's':
+					printed_chars += printf("%s", va_arg(args, char *));
+					break;
+				case '%':
+					_putchar('%');
+					printed_chars++;
+					break;
+				default:
+					_putchar('%');
+					_putchar(*format);
+					printed_chars += 2;
+					break;
+			}
 		}
-		else if (format[count + 1] == 's')
+		else
 		{
-			n = test_string(va_arg(args, int));
-			count++;
-			tmp = (n - 1);
+			_putchar(*format);
+			printed_chars++;
 		}
-		else if (format[count + 1] == 'c')
-		{
-			putchar(va_arg(args, int));
-			count++;
-		}
-		else if (format[count + 1] == '%')
-		{
-			putchar('%');
-		}
-		tmp = tmp + 1;
+		format++;
 	}
-	return (tmp);
+	va_end(args);
+	return (printed_chars);
 }

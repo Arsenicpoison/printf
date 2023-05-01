@@ -25,9 +25,9 @@ unsigned int convert_x(va_list args, buffer_t *output,
 	char *lead = "0x";
 
 	if (len == LONG)
-		num = va_args(args, unsigned long int);
+		num = va_arg(args, unsigned long int);
 	else
-		num = va_args(args, unsigned int);
+		num = va_arg(args, unsigned int);
 	if (len == SHORT)
 		num = (unsigned short)num;
 
@@ -61,9 +61,9 @@ unsigned int convert_X(va_list args, buffer_t *output,
 	char *lead = "0X";
 
 	if (len == LONG)
-		num = va_args(args, unsigned long);
+		num = va_arg(args, unsigned long);
 	else
-		num = va_args(args, unsigned int);
+		num = va_arg(args, unsigned int);
 	if (len == SHORT)
 		num = (unsigned short)num;
 

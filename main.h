@@ -71,8 +71,6 @@ unsigned int convert_percent(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
 unsigned int convert_b(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
-		unsigned char flags, int wid, int prec, unsigned char len);
-
 unsigned int convert_S(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
 unsigned int convert_p(va_list args, buffer_t *output,

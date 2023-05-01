@@ -1,8 +1,8 @@
 #include "main.h"
 
 unsigned int convert_c(va_list args, buffer_t *output,
-		unsinged char flags, int wid, int prec, unsigned char len);
-unsigned int convert_percent(va_list args, buffer_t *output'
+		unsigned char flags, int wid, int prec, unsigned char len);
+unsigned int convert_percent(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
 unsigned int convert_p(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
@@ -28,7 +28,7 @@ unsigned int convert_c(va_list args, buffer_t *output,
 	(void)prec;
 	(void)len;
 
-	c = va_args(args, int);
+	c = va_arg(args, int);
 
 	ret += print_width(output, ret, flags, wid);
 	ret += _memcpy(output, &c, 1);
@@ -51,14 +51,14 @@ unsigned int convert_c(va_list args, buffer_t *output,
 unsigned int convert_percent(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
-	char percent = ' % ';
+	char percent = '%';
 	unsigned int ret = 0;
 
 	(void)args;
 	(void)prec;
 	(void)len;
 
-	ret += print_width(output, ret flags, wid);
+	ret += print_width(output, ret, flags, wid);
 	ret += _memcpy(output, &percent, 1);
 	ret += print_neg_width(output, ret, flags, wid);
 
@@ -86,14 +86,14 @@ unsigned int convert_p(va_list args, buffer_t *output,
 
 	(void)len;
 
-	address = va_args(args, unsigned long int);
+	address = va_arg(args, unsigned long int);
 	if (address == '\0')
 		return (_memcpy(output, null, 5));
 
 	flags |= 32;
-	ret += convert_ubase(output, address,, "0123456789abcdef",
+	ret += convert_ubase(output, address, "0123456789abcdef",
 			flags, wid, prec);
 	ret += print_neg_width(output, ret, flags, wid);
 
-	returm (ret);
+	return (ret);
 }
